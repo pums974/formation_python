@@ -3,7 +3,7 @@ Les bases
 
 Historique
 ----------
-- 1989 : CWI : Guido van Rossum 
+- 1989 : CWI : **Guido van Rossum**
 - 1991 : premiere version publique
 - 1995 : CNRI
 - 1999 : Computer Programming for Everybody (CNRI + DARPA) objectif : python pour l’**enseignement** de la programation
@@ -136,6 +136,12 @@ with open(output) as f :
 ```
 
 autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
+
+apercu de la stdlib
+-------------------
+- sys
+- os
+- ...
 
 Quelques exemples
 -----------------
