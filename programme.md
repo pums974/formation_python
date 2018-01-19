@@ -172,12 +172,22 @@ Modules
 - ```__init__.py```
 - import _ / from _ import _ / from _ import *
 - import implique execution !
+- _TODO_ expliquer les chemins _TODO_
 
 variables ++
 ------------
-- reference partagé
+- reference partagé (faire un beau dessin ou une belle animation)
 - portée des variables
+  - **L**ocal
+  - **E**nglobante
+  - **G**lobale
+  - **B**uiltins
 - espace de nommage
+  - fonction
+  - instance
+  - classe
+  - module
+- heritage multiple et MRO
 
 I/O
 ---
@@ -190,15 +200,21 @@ for line in open(input) :
   - ecriture
 ```
 with open(output) as f :
-	f.write("{:>10} du texte formaté".format("ceci"))
+	f.write("{:>10} est du texte formaté".format("ceci"))
 ```
 
-autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
+- autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
 
 apercu de la stdlib
 -------------------
 - sys
 - os
+- copy
+- math / cmath
+- pathlib
+- itertools
+- shutil
+- time
 - ...
 
 Quelques exemples
