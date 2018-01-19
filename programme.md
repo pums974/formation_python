@@ -63,7 +63,7 @@ from keyworld import kwlist
 print(kwlist)
 ```
 
-- l’indentation
+- l’indentation + ":"
 
 vocabulaire
 -----------
@@ -92,6 +92,46 @@ def factorielle(n):
 
 listes, dicts et compagnie
 --------------------------
+- types courants
+  - tuple : (a,b,c)
+    - immutable
+    - indexable avec des entiers
+    - parenthèses optionelles ( a,b = c,d )
+  - list : [a, b, c]
+    - mutable
+    - indexable avec des entiers
+  - set : {a, b, c}
+    - mutable
+    - indexable avec des entiers
+    - pas de doublons
+  - dict : {a:b, c:d}
+    - mutable
+    - indexation avec a et c
+    - a et c sont des cléfs uniques et immutables
+  - str : "spam" == 'spam' == """spam"""
+    - immutable
+    - indexable avec des entiers
+    - can contains only decoded characters
+    - unicode par default
+- type rares
+  - frozenset
+    - immutable
+    - indexable avec des entiers
+    - pas de doublons
+  - bytearray
+    - mutable
+    - indexable avec des entiers
+    - can contains only encoded characters
+- slicing (pour indexation avec des entiers)
+  - A[1] : deuxième élément
+  - A[-1] : dernier élément
+  - A[4:8:2] : 5eme et 7eme éléments 
+- methodes
+  - len
+  - append
+  - sort / sorted
+- comprehension
+  ```[x**2 for x in range(10)]```
 
 Quelques exemples
 -----------------
