@@ -146,12 +146,30 @@ for i in range(n):
 
 Classes (light)
 ---------------
-- Juste pour le principe
-- evoquer les methodes speciales
+```
+class spam(object):
+  total_number = 0
+  
+  def __init__(self,number = 1):
+    self.number = number
+    total_number += number
+    
+  def __del__(self):
+    total_number -= self.number
+    
+  def combien(self):
+    return self.number
+```
+- Methodes speciales
+  - ```__init__```
+  - ```__del__```
+  - ```__str__``` et ```__repr__```
+  - les operateurs ```__mul__``` ...
+  - ...
 
 Modules
 -------
-- __init__.py
+- ```__init__.py```
 - import _ / from _ import _ / from _ import *
 - import implique execution !
 
