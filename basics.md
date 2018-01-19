@@ -83,11 +83,65 @@ Aides
 quelques exemples
 -----------------
 ```
-def factorielle(n):
-    if n < 2:
+def factorielle(n):                    # définition d'une fonction avec argument
+    if n < 2:                          # définition d'un test
         return 1
     else:
-        return n * factorielle(n - 1)
+        return n * factorielle(n - 1)  # récursivité
+```
+
+```
+def is_prime(num):
+    if num == 1:
+        return False
+    for i in range(2, int(num ** 0.5)):  # définition d'une boucle avec range
+       if (num % i) == 0:
+          return False
+    return True
+```
+
+```
+def quadcube(x):
+    return x ** 2, x ** 3  # multiples valeurs retours
+```
+
+```
+def pythagorean_triplets(limit):
+    c = 0
+    m = 2
+    while(c < limit):
+        for n in range(1, m + 1):
+            a = m * m - n * n
+            b = 2 * m * n
+            c = m * m + n * n
+            if(c > limit):
+                break
+            if(a == 0 or b == 0 or c == 0):
+                break
+            print(a, b, c)
+        m = m + 1
+```
+
+```
+def calcul_pi(err, nmax=float("inf")):  # argument optionnel
+    n = 0
+    erreur = float("inf")
+    
+    a_n = 1.
+    b_n = 2 ** -0.5
+    t = 0.25
+    while erreur > err and n <= nmax:
+        a_np = 0.5 * (a_n + b_n)
+        b_np = (a_n * b_n) ** 0.5
+        t -= (2 ** n) * (a_n - a_np) ** 2
+        
+        a_n, b_n = a_np, b_np   # double affectation
+        
+        erreur = abs(a_n - b_n)
+        n = n + 1
+        
+    pi = (a_n + b_n) ** 2 / (4 * t)
+    return pi, n, erreur
 ```
 
 listes, dicts et compagnie
@@ -132,16 +186,41 @@ listes, dicts et compagnie
   - sort / sorted
 - comprehension
   ```[x**2 for x in range(10)]```
+- generators
+  - range
 
 Quelques exemples
 -----------------
 ```
-a = []
-for i in range(n):
-    if i % 2 != 0:
-        for j in range(n):
-            if j % 3 != 0:
-                a.append(i + j if i != j else 0)
+def slow_list_primes(n):
+    primes = []  # creation d'une liste vide
+    for suspect in range(2,n + 1):
+        is_prime = True
+        for prime in primes:
+            if suspect % prime == 0:
+                is_prime = False                
+                break
+        if is_prime:
+            primes.append(suspect)  # aggrandissement de la liste (lent)
+    return primes
+
+def iter_prime(n):
+    crible = [False] + [True] * (n - 1)                               # creation d'une liste avec operateurs
+    prime = 0
+    for is_prime in crible:                                           # parcour d'une liste
+        prime += 1
+        if is_prime:
+            yield prime                                               # générateur
+            crible[2*(prime-1)+1::prime] = [False] * (n // prime -1)  # slicing
+def list_primes(n):
+    return list(iter_prime(n))  # utilisation d'un itérateur
+
+def fast_list_primes(n):
+    crible = [True] * (n // 2)
+    for i in range(3, int(n ** 0.5) + 1, 2):
+        if crible[i // 2]:
+            crible[i * i // 2::i] = [False] * ((n - i * i - 1) // (2 * i) + 1)
+    return [2] + [2 * i + 1 for i in range(1, n // 2) if crible[i]]  # comprehension de liste
 ```
 
 Classes (light)
@@ -203,6 +282,7 @@ with open(output) as f :
 	f.write("{:>10} est du texte formaté".format("ceci"))
 ```
 
+  - f-string
 - autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
 
 apercu de la stdlib
