@@ -260,15 +260,12 @@ Modules
 
 apercu de la stdlib
 -------------------
-- sys et os
-  deux modules très communs pour lire et agire sur l'environnement du code
+- builtins : est toujours importé automatiquement, contiens la base (int, print(), ..)
+- sys et os : deux modules très communs pour lire et agire sur l'environnement du code
 - shutil
-- math / cmath
-  contiens les fonction mathematiques classiques (reelles / complexes)
-- copy
-  contiens en particulier deepcopy
-- pathlib
-  permet de manipuler proprement des chemin de fichier (mieux que dossier + "/" + fichier)
+- math / cmath : contiens les fonction mathematiques classiques (reelles / complexes)
+- copy :  contiens en particulier deepcopy
+- pathlib : permet de manipuler proprement des chemin de fichier (mieux que dossier + "/" + fichier)
 - time
 - ...
 
