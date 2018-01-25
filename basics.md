@@ -27,6 +27,7 @@ Helloworld
 ----------
 ```
 print("hello world")
+print(2+3*9/6)
 ```
 c’est aussi simple que ca !
 
@@ -69,6 +70,8 @@ vocabulaire
 -----------
 - mutable / immuable
 - exception
+- shebang ``` #!/usr/bin/env python3 ```
+- encoding ``` # -*- coding: utf-8 -*- ```
 
 Aides
 -----
@@ -203,7 +206,8 @@ def slow_list_primes(n):
         if is_prime:
             primes.append(suspect)  # aggrandissement de la liste (lent)
     return primes
-
+```
+```
 def iter_prime(n):
     crible = [False] + [True] * (n - 1)                               # creation d'une liste avec operateurs
     prime = 0
@@ -214,7 +218,8 @@ def iter_prime(n):
             crible[2*(prime-1)+1::prime] = [False] * (n // prime -1)  # slicing
 def list_primes(n):
     return list(iter_prime(n))  # utilisation d'un itérateur
-
+```
+```
 def fast_list_primes(n):
     crible = [True] * (n // 2)
     for i in range(3, int(n ** 0.5) + 1, 2):
@@ -223,21 +228,77 @@ def fast_list_primes(n):
     return [2] + [2 * i + 1 for i in range(1, n // 2) if crible[i]]  # comprehension de liste
 ```
 
+I/O
+---
+- Fichier texte
+  - lecture
+```
+for line in open(input) :
+	print(line.split())
+```
+  - ecriture
+```
+with open(output) as f :
+	f.write("{:>10} est du texte formaté".format("ceci"))
+```
+  - **toujours** decode en entrée
+  - **toujours** encode en sortie
+  - formatage
+    - print("un nombre : %d" % nombre)
+    - print("un nombre : {:}".format(nombre))
+    - print(f"un nombre : {nombre:}")
+- autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
+
+Modules
+-------
+- ```__init__.py```
+- import _ / from _ import _ / from _ import *
+- import implique execution !
+- peut être importé
+  - tout module dans sys.path (alimenté par PYTHONPATH)
+  - tout sous module avec spam.egg (importera spam puis egg dans le dossier spam)
+
+apercu de la stdlib
+-------------------
+- sys et os
+  deux modules très communs pour lire et agire sur l'environnement du code
+- shutil
+- math / cmath
+  contiens les fonction mathematiques classiques (reelles / complexes)
+- copy
+  contiens en particulier deepcopy
+- pathlib
+  permet de manipuler proprement des chemin de fichier (mieux que dossier + "/" + fichier)
+- time
+- ...
+
+Quelques exemples
+-----------------
+
 Classes (light)
 ---------------
+**En python TOUT est objet**
 ```
-class spam(object):
+class egg(object):
   total_number = 0
   
   def __init__(self,number = 1):
     self.number = number
-    total_number += number
+    egg.total_number += number
+    
+  @classmethod
+  def depuis_recette(cls,ingredients):
+    return cls(ingredients["oeufs"])
     
   def __del__(self):
-    total_number -= self.number
+    egg.total_number -= self.number
     
   def combien(self):
     return self.number
+
+  @staticmethod
+  def combien_egg():
+    return egg.total_number
 ```
 - Methodes speciales
   - ```__init__```
@@ -245,13 +306,7 @@ class spam(object):
   - ```__str__``` et ```__repr__```
   - les operateurs ```__mul__``` ...
   - ...
-
-Modules
--------
-- ```__init__.py```
-- import _ / from _ import _ / from _ import *
-- import implique execution !
-- _TODO_ expliquer les chemins _TODO_
+- @classmethod et @staticmethod
 
 variables ++
 ------------
@@ -267,36 +322,4 @@ variables ++
   - classe
   - module
 - heritage multiple et MRO
-
-I/O
----
-- Fichier texte
-  - lecture
-```
-for line in open(input) :
-	print(line.split())
-```
-  - ecriture
-```
-with open(output) as f :
-	f.write("{:>10} est du texte formaté".format("ceci"))
-```
-
-  - f-string
-- autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
-
-apercu de la stdlib
--------------------
-- sys
-- os
-- copy
-- math / cmath
-- pathlib
-- itertools
-- shutil
-- time
-- ...
-
-Quelques exemples
------------------
 
