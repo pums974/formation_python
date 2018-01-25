@@ -64,7 +64,7 @@ from keyworld import kwlist
 print(kwlist)
 ```
 
-- l’indentation + ":"
+- l’indentation + ":" (utiliser ```pass``` pour un bloc vide)
 
 vocabulaire
 -----------
@@ -244,9 +244,9 @@ with open(output) as f :
   - **toujours** decode en entrée
   - **toujours** encode en sortie
   - formatage
-    - print("un nombre : %d" % nombre)
-    - print("un nombre : {:}".format(nombre))
-    - print(f"un nombre : {nombre:}")
+    - ```print("un nombre : %d" % nombre)```
+    - ```print("un nombre : {:}".format(nombre))```
+    - ```print(f"un nombre : {nombre:}")``` (uniquement en python 3.6)
 - autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
 
 Modules
