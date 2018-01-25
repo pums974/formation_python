@@ -76,6 +76,7 @@ Packaging
 performance
 -----------
 - profiling
+- numexpr
 - parallelism
   - asyncio
   - multithreading
