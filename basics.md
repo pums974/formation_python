@@ -13,6 +13,16 @@ Historique
 - 2018 : 4eme langage le plus populaire (après Java, C, C++)
 - 2020 : mort de python 2.x
 
+La force de Python (scipy)
+------------------
+
+- **Batteries included**
+- **Easy to learn**
+- **Easy
+communication**
+- **Efficient code**
+- **Universal**
+
 installation
 ------------
 - Windows : anaconda + conda + pip
@@ -25,10 +35,15 @@ vim+terminal / IDLE / spyder / notebook
 
 Helloworld
 ----------
+
+```python
+print("Hello World !")
 ```
-print("hello world")
-print(2+3*9/6)
+
+```python
+print(2 + 3 * 9 / 6)
 ```
+
 c’est aussi simple que ca !
 
 Syntaxe (cheatsheet)
@@ -42,35 +57,41 @@ Syntaxe (cheatsheet)
     - mais les accents sont autorisés (à éviter quand même)
   - typage dynamique
     - types numériques
-      - entiers de précision infinie
+- entiers de précision infinie
       - float de double précision
       - complex
-    - types « itérables »
+- types « itérables »
       - tuple
       - list
       - set
       - dist
-      - str
+- str
       - frozenset
       - bytarray
-- les operateurs
+- les operateurs  
+  ``` + - * ** / // % = < > <= >= == != () {} [] ‘ " @ . ```  
+- l’indentation + ":" (utiliser ```pass``` pour un bloc vide)
+- les mots clefs :
 
-  ``` + - * ** / // % = < > <= >= == != () {} [] ‘ " ```
-  
-- les mots clefs : 
-
-```
-from keyworld import kwlist
+```python
+from keyword import kwlist
 print(kwlist)
 ```
-
-- l’indentation + ":" (utiliser ```pass``` pour un bloc vide)
 
 vocabulaire
 -----------
 - mutable / immuable
-- exception
-- shebang ``` #!/usr/bin/env python3 ```
+  un objet mutable peux changer contrairement à un objet immuable    
+  les types numériques sont évidement immuable  
+    
+
+- exception  
+  python ne plante jamais, quoi que vous écriviez (ou presque jamais)  
+  si un problème apparait, python lance une exception qui arrete le programme (sauf si elle est traitée)
+  
+  
+- shebang ```
+#!/usr/bin/env python3 ```
 - encoding ``` # -*- coding: utf-8 -*- ```
 
 Aides
@@ -81,35 +102,58 @@ Aides
   - docs.python.org
   - stackoverflow
   - reddit
-  - ...
+- ...
   
 quelques exemples
 -----------------
-```
+
+```python
 def factorielle(n):                    # définition d'une fonction avec argument
     if n < 2:                          # définition d'un test
-        return 1
+        return 1                       # multiples points de retours
     else:
         return n * factorielle(n - 1)  # récursivité
+    
+res = factorielle(5)
+print(res)
 ```
 
+```python
+def factorielle_cinq():                # définition d'une fonction sans argument
+    return factorielle(5)
+
+res = factorielle_cinq()
+print(res)
 ```
+
+```python
 def is_prime(num):
     if num == 1:
         return False
-    for i in range(2, int(num ** 0.5)):  # définition d'une boucle avec range
+    for i in range(2, int(num ** 0.5)+1):  # définition d'une boucle avec range
        if (num % i) == 0:
           return False
     return True
+
+print(is_prime(7))                         # enchainement de fonction
+print(is_prime(9))
 ```
 
-```
+```python
 def quadcube(x):
     return x ** 2, x ** 3  # multiples valeurs retours
+
+x1, x2 = quadcube(7)
+print(x1,x2)
 ```
 
-```
+```python
 def pythagorean_triplets(limit):
+    """ print all pythagorean triplets below a limit
+    
+    A pythagorean triplet is a triplet of integers a, b and c such that
+    a^2 + b^2 = c^2
+    """                                       # use a docstring
     c = 0
     m = 2
     while(c < limit):
@@ -118,33 +162,40 @@ def pythagorean_triplets(limit):
             b = 2 * m * n
             c = m * m + n * n
             if(c > limit):
-                break
+                break                         # arret d'une boucle
             if(a == 0 or b == 0 or c == 0):
                 break
             print(a, b, c)
         m = m + 1
+        
+help(pythagorean_triplets)
+pythagorean_triplets(30)
 ```
 
-```
-def calcul_pi(err, nmax=float("inf")):  # argument optionnel
+```python
+def calcul_pi(err, nmax=float("inf")):    # argument optionnel
     n = 0
     erreur = float("inf")
     
     a_n = 1.
     b_n = 2 ** -0.5
     t = 0.25
-    while erreur > err and n <= nmax:
+    while erreur > err and n < nmax:
         a_np = 0.5 * (a_n + b_n)
         b_np = (a_n * b_n) ** 0.5
-        t -= (2 ** n) * (a_n - a_np) ** 2
+        t -= (2 ** n) * (a_n - a_np) ** 2  # soustraction sur place
         
-        a_n, b_n = a_np, b_np   # double affectation
+        a_n, b_n = a_np, b_np              # double affectation
         
         erreur = abs(a_n - b_n)
         n = n + 1
         
     pi = (a_n + b_n) ** 2 / (4 * t)
     return pi, n, erreur
+
+print(calcul_pi(1e-15))
+print(calcul_pi(1e-15, 3))
+print(calcul_pi(1e-15, nmax=2))
 ```
 
 listes, dicts et compagnie
@@ -178,7 +229,7 @@ listes, dicts et compagnie
   - bytearray
     - mutable
     - indexable avec des entiers
-    - can contains only encoded characters
+- can contains only encoded characters
 - slicing (pour indexation avec des entiers)
   - A[1] : deuxième élément
   - A[-1] : dernier élément
@@ -189,14 +240,19 @@ listes, dicts et compagnie
   - sort / sorted
 - comprehension
   ```[x**2 for x in range(10)]```
-- generators
+- generators / iterator
   - range
+  - enumerate
+  - zip
+  - open("filename")
+  - ...
 
 Quelques exemples
 -----------------
-```
+
+```python
 def slow_list_primes(n):
-    primes = []  # creation d'une liste vide
+    primes = []                      # creation d'une liste vide
     for suspect in range(2,n + 1):
         is_prime = True
         for prime in primes:
@@ -204,10 +260,13 @@ def slow_list_primes(n):
                 is_prime = False                
                 break
         if is_prime:
-            primes.append(suspect)  # aggrandissement de la liste (lent)
+            primes.append(suspect)   # aggrandissement de la liste (lent)
     return primes
+
+slow_list_primes(10)
 ```
-```
+
+```python
 def iter_prime(n):
     crible = [False] + [True] * (n - 1)                               # creation d'une liste avec operateurs
     prime = 0
@@ -216,87 +275,160 @@ def iter_prime(n):
         if is_prime:
             yield prime                                               # générateur
             crible[2*(prime-1)+1::prime] = [False] * (n // prime -1)  # slicing
+            
 def list_primes(n):
     return list(iter_prime(n))  # utilisation d'un itérateur
+
+list_primes(20)
 ```
-```
+
+```python
 def fast_list_primes(n):
-    crible = [True] * (n // 2)
+    crible = [True] * (n // 2)                                       # division entière
     for i in range(3, int(n ** 0.5) + 1, 2):
         if crible[i // 2]:
             crible[i * i // 2::i] = [False] * ((n - i * i - 1) // (2 * i) + 1)
     return [2] + [2 * i + 1 for i in range(1, n // 2) if crible[i]]  # comprehension de liste
+
+list_primes(50)
 ```
 
 I/O
 ---
+- **toujours** decode en entrée
+- **toujours** encode en sortie
+-
+formatage
+  - ```print("un nombre : %d" % nombre)```
+  - ```print("un nombre :
+{:}".format(nombre))```
+  - ```print(f"un nombre : {nombre:}")``` (uniquement en
+python 3.6)
+- En général : utiliser un paquets appropié (pillow pour les images) -> ecosystème
+- Operation sur les string
+  - TODO
 - Fichier texte
   - lecture
+
+```python
+for line in open("README.md", encoding="utf-8"):      # use of encoding strongly encouraged
+    print(line.split())
 ```
-for line in open(input) :
-	print(line.split())
+
+- ecriture
+
+```python
+with open("output_filenamme", 'w', encoding="utf-8") as f:  # utilisation d'un contexte
+    f.write("{:>10} est du texte formaté".format("ceci"))
 ```
-  - ecriture
-```
-with open(output) as f :
-	f.write("{:>10} est du texte formaté".format("ceci"))
-```
-  - **toujours** decode en entrée
-  - **toujours** encode en sortie
-  - formatage
-    - ```print("un nombre : %d" % nombre)```
-    - ```print("un nombre : {:}".format(nombre))```
-    - ```print(f"un nombre : {nombre:}")``` (uniquement en python 3.6)
-- autres fichiers -> utiliser un paquets appropié (pillow pour les images) -> ecosystème
+
+VOUS ÊTES PRÈT A PYTHONISER
+===========================
+
+Quelques éléments supplémentaire à garder en tête
+-------------------------------------------------
 
 Modules
 -------
-- ```__init__.py```
-- import _ / from _ import _ / from _ import *
-- import implique execution !
+-
+```__init__.py```
+- differentes facon d'importer
+  - ```import paquet```
+  Puis paquet.fonction()
+  - ```from paquet import fonction```  
+  Puis fonction()
+- ```from paquet import *```  
+  Puis fonction()  
+  A évité !
+  
+  
+- import implique execution !  
+  ```if __name__ == '__main__'```
 - peut être importé
   - tout module dans sys.path (alimenté par PYTHONPATH)
   - tout sous module avec spam.egg (importera spam puis egg dans le dossier spam)
 
+```python
+from sys import path
+print(path)
+```
+
 apercu de la stdlib
 -------------------
-- builtins : est toujours importé automatiquement, contiens la base (int, print(), ..)
-- sys et os : deux modules très communs pour lire et agire sur l'environnement du code
-- shutil
+- builtins     : est toujours importé automatiquement, contiens la base (int, print(), ...)
+- sys et os    : deux modules très communs pour lire et agir sur l'environnement du code
+- shutil       : permet de manipuler des fichier (copy, renomage, ...)
 - math / cmath : contiens les fonction mathematiques classiques (reelles / complexes)
-- copy :  contiens en particulier deepcopy
-- pathlib : permet de manipuler proprement des chemin de fichier (mieux que dossier + "/" + fichier)
+- copy         : contiens en particulier deepcopy
+- pathlib      : permet de manipuler proprement des chemin de fichier (mieux que dossier + "/" + fichier)
 - time
 - ...
-
-Quelques exemples
------------------
 
 Classes (light)
 ---------------
 **En python TOUT est objet**
-```
-class egg(object):
-  total_number = 0
+
+```python
+class simple(object):                         # Tous les objets heritent d'object
+  def __init__(self, attribut="value"):       # constructeur
+    self.attribut = attribut                  # Bonne facon de définir les attributs
+    
+  def get_attribut(self):                     # fonction normale de l'instance
+    return self.attribut
+
+class egg(object):                            # Tous les objets dérivent d'object
+  """ Full exemple of a class in python """
+  total_number = 0                            # attribut partagé par toutes les instance **DANGER** ! 
   
-  def __init__(self,number = 1):
-    self.number = number
+  def __init__(self, number=1):               # constructeur
+    """ constructor from number """
+    self.number = number                      # Bonne facon de définir les attributs
     egg.total_number += number
     
   @classmethod
-  def depuis_recette(cls,ingredients):
+  def depuis_recette(cls, ingredients):       # constructeur alternatif (rare)
+    """ constructor from recepee """
     return cls(ingredients["oeufs"])
     
-  def __del__(self):
+  def __del__(self):                          # destructeur (rare)
+    """ destructor """
     egg.total_number -= self.number
-    
-  def combien(self):
+
+  def __str__(self):                          # permet d'imprimer l'instance
+    """ Permet d'imprimer l'instance """
+    return "Sur {} oeufs, j'en possède {}".format(egg.total_number, self.number)
+        
+  def combien(self):                          # fonction normale de l'instance
+    """ Retourne le nombre d'oeufs dans l'instance """
     return self.number
 
   @staticmethod
-  def combien_egg():
+  def combien_egg():                          # fonction de l'objet (rare)
+    """ Retourne le nombre d'oeufs au total """
     return egg.total_number
+
+oeuf_au_plat = egg()
+omelette=egg(3)
+recette_crepes={"oeufs":2, "lait":0.5, "farine":300}
+crepe = egg.depuis_recette(recette_crepes)
+print("Oeuf au plat : ", oeuf_au_plat)
+print("Omelette     : ", omelette)
+print("Crepes       : ", crepe)
+
+print("{:<12} : {:>5} | {}".format("egg","NaN", egg.combien_egg()))
+print("{:<12} : {:>5} | {}".format("oeuf_au_plat",oeuf_au_plat.combien(), oeuf_au_plat.combien_egg()))
+print("{:<12} : {:>5} | {}".format("omelette",omelette.combien(), omelette.combien_egg()))
+print("{:<12} : {:>5} | {}".format("crepe",crepe.combien(), crepe.combien_egg()))
+del omelette
+print("{:<12} : {:>5} | {}".format("egg","NaN", egg.combien_egg()))
+print("{:<12} : {:>5} | {}".format("oeuf_au_plat",oeuf_au_plat.combien(), oeuf_au_plat.combien_egg()))
+print("{:<12} : {:>5} | {}".format("crepe",crepe.combien(), crepe.combien_egg()))
+del oeuf_au_plat
+del crepe
+
+help(egg)
 ```
+
 - Methodes speciales
   - ```__init__```
   - ```__del__```
@@ -308,15 +440,32 @@ class egg(object):
 variables ++
 ------------
 - reference partagé (faire un beau dessin ou une belle animation)
-- portée des variables
+- portée des variables (lecture)
   - **L**ocal
-  - **E**nglobante
+- **E**nglobante
   - **G**lobale
-  - **B**uiltins
-- espace de nommage
-  - fonction
+  - **I**mports
+- espace de nommage (ecriture)
+- fonction
   - instance
   - classe
   - module
 - heritage multiple et MRO
 
+Bonnes pratiques
+================
+
+La philosophie de python
+
+```python
+import this # PEP 20
+```
+
+- Respecter la [PEP 8](https://www.python.org/dev/peps/pep-0008/)
+- 4 espaces pas de tabulation
+- Partir de l'existant avant de coder un algo
+- un code clair sans commentaire est mieux qu'un code obscure mais commenté
+- utiliser des docstrings
+
+- [The Hitchhiker’s Guide to Python!](http://docs.python-guide.org/en/latest/)
+- http://www.scipy-lectures.org
