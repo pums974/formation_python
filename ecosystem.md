@@ -5,9 +5,9 @@ Rappel pip
 ----------
 - Windows
   - conda install package
-  - pip install package
+- pip install package
 - Linux et Mac
-  - pip install --user package (linux et mac)
+  - pip install --user package
   
   
 Numpy (+scipy)
@@ -25,18 +25,18 @@ Numpy :
 - ```shape``` : forme d'un tableau
 - creation :
   - ```empty``` : creation rapide mais sans initialisation
-  - ```zeros```, ```zeros_like```, ```ones```, ```ones_like``` : creation avec initialisation à 0 ou 1
+- ```zeros```, ```zeros_like```, ```ones```, ```ones_like``` : creation avec initialisation à 0 ou 1
   - ```arange(debut, fin, pas)```
   - ```linspace(debut, fin, nb de points)```
   - ```meshgrid``` : maillage
 - produit matriciel : ```@```
 - **Beaucoup** de paquets utilisent cette structure de donnée
 - utiliser ```&``` et ```|``` au lieu de ```and``` et ```or```
-- quelques fonctions utiles  (survol)
+- quelques fonctions utiles (survol)
   - ```linalg.eigvals``` : valeurs propres
   - ```linalg.det``` : determinant
   - ```linalg.solve``` : resoud Ax = b
-  - ```linalg.inv``` : inverse une matrice
+  - ```linalg.inv``` :inverse une matrice
   - ```sort``` : tri
   - ```where``` : recherche
   - ```median```, ```average```, ```std```,```var``` : statistiques classiques
@@ -78,18 +78,96 @@ Matpotlib
 
 Quelques exemples
 -----------------
-```
+
+```python
 import numpy as np
-import matpotlib.pyplot as plt
+import matplotlib.pyplot as plt
+%matplotlib inline 
 
 def f(t):
   return np.exp(-t) * np.cos(2*np.pi*t)
 
 t = np.arange(0.0, 5.0, 0.1)
 
-plt.plot(t1, f(t1))
+plt.plot(t, f(t))
 plt.show()
+```
 
+```python
+from scipy import misc
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline 
+face = misc.face(gray=True)
+plt.imshow(face)
+plt.show()
+plt.imshow(face, cmap=plt.cm.gray)
+plt.show()
+```
+
+```python
+sy, sx = face.shape
+y, x = np.mgrid[0:sy, 0:sx] # x and y indices of pixels
+
+centerx, centery = (660, 300) # center of the image
+
+mask = ((y - centery)**2 + (x - centerx)**2) > 230**2 # circle
+face[mask] = 0
+plt.imshow(face, cmap=plt.cm.gray)    
+plt.show()
+```
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+%matplotlib inline 
+
+data = np.loadtxt('populations.txt')
+print(data)
+```
+
+```python
+year, hares, lynxes, carrots = data.T
+populations = data[:,1:]
+
+means = populations.mean(axis=0)
+stds = populations.std(axis=0)
+max_populations = np.argmax(populations, axis=0)
+max_years = year[max_populations]
+lowest_2_pop = np.argsort(populations, axis=0)[:2]
+lowest_2_year = year[lowest_2_pop]
+
+format_array = "{:<30} {:^10.5} | {:^10.5} | {:^10.5}"
+print(format_array.format("", "Hares", "Lynxes", "Carrots"))
+print(format_array.format("Mean:", *means))
+print(format_array.format("Std:", *stds))
+print(format_array.format("Max. year:",*max_years))
+
+print(format_array.format("lowest populations year 1:", *lowest_2_year[0]))
+print(format_array.format("lowest populations year 2:", *lowest_2_year[1]))
+```
+
+```python
+above_50000 = np.any(populations > 50000, axis=1)
+print("Any above 50000:", year[above_50000])
+```
+
+```python
+max_species = np.argmax(populations, axis=1)
+species = np.array(['Hare', 'Lynx', 'Carrot'])
+
+max_species=np.stack((year,species[max_species]),axis=1)
+print("Max species:")
+print(max_species)
+```
+
+```python
+hare_grad = np.gradient(hares, 1.0)
+print("diff(Hares) vs. Lynxes correlation", np.corrcoef(hare_grad, lynxes)[0,1])
+
+plt.plot(year, hare_grad)
+plt.plot(year, -lynxes)
+plt.show()
 ```
 
 scikits
@@ -109,7 +187,8 @@ Opencv
 
 Quelques exemples
 -----------------
-```
+
+```python
 import numpy as np
 import matplotlib.pyplot as plt
 from scipy import ndimage as ndi
@@ -149,13 +228,8 @@ for threshold in [100,140,110]:
     segmentation = segmentation_with_threshold(coins, threshold)
     plot_result(segmentation, "Threshold method with {}".format(threshold))
 ```
-```
-def segmentation_with_edges(datain):
-    """ segmentation based on edges """
-    from skimage.feature import canny
-    return ndi.binary_fill_holes(canny(datain/255.))
-```
-```
+
+```python
 def filter_small_objects(datain, threshold):
     """ segmentation based on edges """
     # label each zone
@@ -169,8 +243,25 @@ def filter_small_objects(datain, threshold):
       
     #apply filter
     return mask_sizes[label_objects]  
+
+segmentation = segmentation_with_threshold(coins, 110)
+segmentation = filter_small_objects(segmentation,20)
+plot_result(segmentation, "Threshold method filtered")
 ```
+
+```python
+def segmentation_with_edges(datain):
+    """ segmentation based on edges """
+    from skimage.feature import canny
+    return ndi.binary_fill_holes(canny(datain/255.))
+
+segmentation = segmentation_with_edges(coins)
+plot_result(segmentation, "Edges method")
+segmentation = filter_small_objects(segmentation,20)
+plot_result(segmentation, "Edges method filtered")
 ```
+
+```python
 def segmentation_with_region(datain):
     """ segmentation based on region """
     from skimage.filters import sobel
@@ -187,7 +278,21 @@ def segmentation_with_region(datain):
     
     # apply watershed algo
     segmentation = watershed(elevation_map, markers) - 1
-    return ndi.binary_fill_holes(segmentation)          
+    return ndi.binary_fill_holes(segmentation)         
+
+segmentation = segmentation_with_region(coins)
+plot_result(segmentation, "Region method")
+segmentation = filter_small_objects(segmentation,20)
+plot_result(segmentation, "Region method filtered")
+```
+
+```python
+from skimage.measure import moments
+labeled_coins, _ = ndi.label(segmentation)
+masses = [moments((labeled_coins==label).astype(np.uint8))[0,0]
+          for label in range(1,np.max(labeled_coins))]
+
+print(masses)
 ```
 
 simpy
