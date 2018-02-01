@@ -375,58 +375,6 @@ class simple(object):                         # Tous les objets heritent d'objec
     
   def get_attribut(self):                     # fonction normale de l'instance
     return self.attribut
-
-class egg(object):                            # Tous les objets dérivent d'object
-  """ Full exemple of a class in python """
-  total_number = 0                            # attribut partagé par toutes les instance **DANGER** ! 
-  
-  def __init__(self, number=1):               # constructeur
-    """ constructor from number """
-    self.number = number                      # Bonne facon de définir les attributs
-    egg.total_number += number
-    
-  @classmethod
-  def depuis_recette(cls, ingredients):       # constructeur alternatif (rare)
-    """ constructor from recepee """
-    return cls(ingredients["oeufs"])
-    
-  def __del__(self):                          # destructeur (rare)
-    """ destructor """
-    egg.total_number -= self.number
-
-  def __str__(self):                          # permet d'imprimer l'instance
-    """ Permet d'imprimer l'instance """
-    return "Sur {} oeufs, j'en possède {}".format(egg.total_number, self.number)
-        
-  def combien(self):                          # fonction normale de l'instance
-    """ Retourne le nombre d'oeufs dans l'instance """
-    return self.number
-
-  @staticmethod
-  def combien_egg():                          # fonction de l'objet (rare)
-    """ Retourne le nombre d'oeufs au total """
-    return egg.total_number
-
-oeuf_au_plat = egg()
-omelette=egg(3)
-recette_crepes={"oeufs":2, "lait":0.5, "farine":300}
-crepe = egg.depuis_recette(recette_crepes)
-print("Oeuf au plat : ", oeuf_au_plat)
-print("Omelette     : ", omelette)
-print("Crepes       : ", crepe)
-
-print("{:<12} : {:>5} | {}".format("egg","NaN", egg.combien_egg()))
-print("{:<12} : {:>5} | {}".format("oeuf_au_plat",oeuf_au_plat.combien(), oeuf_au_plat.combien_egg()))
-print("{:<12} : {:>5} | {}".format("omelette",omelette.combien(), omelette.combien_egg()))
-print("{:<12} : {:>5} | {}".format("crepe",crepe.combien(), crepe.combien_egg()))
-del omelette
-print("{:<12} : {:>5} | {}".format("egg","NaN", egg.combien_egg()))
-print("{:<12} : {:>5} | {}".format("oeuf_au_plat",oeuf_au_plat.combien(), oeuf_au_plat.combien_egg()))
-print("{:<12} : {:>5} | {}".format("crepe",crepe.combien(), crepe.combien_egg()))
-del oeuf_au_plat
-del crepe
-
-help(egg)
 ```
 
 - Methodes speciales
