@@ -1,1 +1,2 @@
-# formation_python
+Notebooks pour la formation Python
+==================================
