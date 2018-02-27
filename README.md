@@ -1,6 +1,6 @@
 # Notebooks pour la formation Python
 
-[Online version](https://github.com/pums974/formation_python)
+Online version : [https://github.com/pums974/formation_python](https://github.com/pums974/formation_python)
 
 |           | User           | Password      |
 | --------- | -------------- | ------------- |
