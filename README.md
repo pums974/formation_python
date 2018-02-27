@@ -2,14 +2,19 @@
 
 [Online version](https://github.com/pums974/formation_python)
 
-## In windows
-user     = formationcoria  
-password = UMR6614
+|           | User           | Password      |
+| --------- | -------------- | ------------- |
+| Windows   | formationcoria | UMR6614       |
+| Linux     | pythonstudent  | pythonstudent |
 
-## In Linux
-user     = pythonstudent  
-password = pythonstudent
-
-## In a new terminal
-In order to get the last version of this notebooks:  
+## Get the last version of this notebooks:
+```sh
+cd formation_python
 git pull
+```
+
+## Start jupyter
+```sh
+cd formation_python
+jupyter-notebook
+```
