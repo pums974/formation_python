@@ -30,7 +30,7 @@ rm -rf formation_python
 ```
 2. Get the last version of this notebooks:
 ```sh
-git clone git@github.com:pums974/formation_python.git
+git clone https://github.com/pums974/formation_python.git
 ```
 3. Start jupyter
 ```sh
