@@ -13,7 +13,7 @@ Connect with your credentials
 3. At the end of the installation:
     - Do not install VSCODE
     - You do not want to learn more about anything
-4. Start anaconda
+4. Start jupyter
 5. Open the 01_basic.ipynb
 
 
