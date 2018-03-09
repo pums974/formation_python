@@ -5,33 +5,34 @@ Online version : [https://github.com/pums974/formation_python](https://github.co
 # Python under Windows
 Connect with your credentials
 
-## Anaconda
-Start the installation
-1. Download the installer : http://www.anaconda.com/download Python3.6
-2. Install with all options by default
-3. The installation takes ~10min
-4. During this time download this repository
-5. At the end of the installation:
+1. Install Anaconda
+    1. Download the installer : http://www.anaconda.com/download Python3.6
+    2. Install with all options by default
+    3. The installation takes ~10min
+2. During this time download this repository
+3. At the end of the installation:
     - Do not install VSCODE
     - You do not want to learn more about anything
-6. Start anaconda
-7. Open the 01_basic.ipynb
+4. Start jupyter
+5. Open the 01_basic.ipynb
 
 
-# Python under LINUX (OLD)
+# Python under LINUX
 
 |           | User           | Password      |
 | --------- | -------------- | ------------- |
 | Windows   | formationcoria | UMR6614       |
 | Linux     | pythonstudent  | pythonstudent |
 
-## Get the last version of this notebooks:
+1. Remove old version
 ```sh
-cd formation_python
-git pull
+rm -rf formation_python
 ```
-
-## Start jupyter
+2. Get the last version of this notebooks:
+```sh
+git clone https://github.com/pums974/formation_python.git
+```
+3. Start jupyter
 ```sh
 cd formation_python
 jupyter-notebook
