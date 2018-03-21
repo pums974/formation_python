@@ -16,14 +16,15 @@ int main() {
   const size_t smax = 9;
   const size_t tmax = 9;
   
-  long f[vmax*wmax];
-  long h[vmax*wmax];
-  long g[smax*tmax];
+  long* f = malloc(vmax*wmax*sizeof(long));
+  long* h = malloc(vmax*wmax*sizeof(long));
+  long* g = malloc(smax*tmax*sizeof(long));
   
   for(size_t ii = 0; ii<vmax*wmax; ii++)
     {
       f[ii] = ii;
     }
+
   for(size_t ii = 0; ii<smax*tmax; ii++)
     {
       g[ii] = ii;
@@ -44,5 +45,9 @@ int main() {
   int us = timeElapsed/1000 - 1000000 *s - 1000 * ms;
   int ns = timeElapsed - 1000000000 *s - 1000000 * ms - 1000 * us;
   printf("Time : %4ds %4dms %4dus %4dns\n", s, ms, us, ns);
+
+  free(f);
+  free(g);
+  free(h);
 
 }
