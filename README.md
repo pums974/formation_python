@@ -19,21 +19,20 @@ Connect with your credentials
 
 # Python under LINUX
 
-|           | User           | Password      |
-| --------- | -------------- | ------------- |
-| Windows   | formationcoria | UMR6614       |
-| Linux     | pythonstudent  | pythonstudent |
+| Crendentials | User           | Password      |
+| ------------ | -------------- | ------------- |
+| Windows      | formationcoria | UMR6614       |
+| Linux        | pythonstudent  | pythonstudent |
 
-1. Remove old version
+1. Get the last version of this notebooks:
 ```sh
-rm -rf formation_python
+cd /home/pythonstudent/formation_python
+git pull
 ```
-2. Get the last version of this notebooks:
+
+2. Start jupyter
 ```sh
-git clone https://github.com/pums974/formation_python.git
-```
-3. Start jupyter
-```sh
-cd formation_python
 jupyter-notebook
 ```
+
+3. Open the 01_basic.ipynb
