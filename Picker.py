@@ -11,11 +11,7 @@ class Picker(object):
 
     User may have to modify the dataplot function
     """
-    def __init__(self):
-        # Current image number
-        self.ImgNum = 0
-
-    def pick(self, data):
+    def pick(self, args, ndata=None, plotfx=None):
         """
         Main function
         
@@ -28,8 +24,22 @@ class Picker(object):
         """
         
         # prepare data
-        self.data = data
-        self.ndata = data.shape[0]
+        self.args = args
+        if ndata is None:
+            if isinstance(data, np.ndarray):
+                self.ndata = data.shape[0]
+            else:
+                self.ndata = len(data)
+        else:
+            self.ndata = ndata
+
+        if plotfx is None:
+            self.plotfx = self.defaultplot
+        else:
+            self.plotfx = plotfx
+
+        # Current image number
+        self.ImgNum = 0
 
         # prepare result
         self.result = np.empty((self.ndata,2))
@@ -82,7 +92,7 @@ class Picker(object):
             self.clearall()
             
             # Plot the data
-            self.dataplot()
+            self.dataplot(self.args)
             
         # Print the table
         self.tableplot()
@@ -104,8 +114,13 @@ class Picker(object):
         """
         self.markers.set_ydata(self.result[self.ImgNum][1])
         self.markers.set_xdata(self.result[self.ImgNum][0])
-            
-    def dataplot(self):
+
+    @staticmethod
+    def defaultplot(ax, ImgNum, args):
+        plot, = ax.plot(*args[ImgNum].T, 'ro', picker=50.)
+        return plot  
+
+    def dataplot(self, args):
         """
         Plot the data
         
@@ -116,8 +131,7 @@ class Picker(object):
 
         One can add other plot on the ax 
         """
-        self.ax.plot(*self.data[self.ImgNum][:,::3], '-k')
-        self.plot, = self.ax.plot(*self.data[self.ImgNum], 'ro', picker=50.)
+        self.plot = self.plotfx(self.ax, self.ImgNum, self.args)
         self.markers, = self.ax.plot(*self.result[self.ImgNum], 'go', alpha=0.5, ms=20)
 
     def tableplot(self):
@@ -186,6 +200,9 @@ class Picker(object):
         # mouse position
         xmous = event.mouseevent.xdata
         ymous = event.mouseevent.ydata
+        if (xmous is None or
+            ymous is None) :
+            return
 
         # data position
         xdata = self.plot.get_xdata()
