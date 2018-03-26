@@ -31,7 +31,7 @@ allocate(g(smax,tmax))
   
   CALL SYSTEM_CLOCK(t1, count_rate)
   do i=1,70
-    call convolve_fortran(f, g, vmax, wmax, smax, tmax, h, err)
+    call convolve_fortran_pure(f, g, vmax, wmax, smax, tmax, h, err)
   enddo
   CALL SYSTEM_CLOCK(t2)
 
