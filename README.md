@@ -2,6 +2,8 @@
 
 Online version : [https://github.com/pums974/formation_python](https://github.com/pums974/formation_python)
 
+[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/pums974/formation_python/master)
+
 # Python under Windows
 Connect with your credentials
 
